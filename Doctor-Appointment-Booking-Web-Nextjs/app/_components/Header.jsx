@@ -7,8 +7,9 @@ import {
 } from "@kinde-oss/kinde-auth-nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRole } from "../_context/RoleContext";
+import GlobalApi from "@/app/_utils/GlobalApi";
 import {
   Popover,
   PopoverContent,
@@ -16,37 +17,40 @@ import {
 } from "@/components/ui/popover";
 
 function Header() {
-  const { role } = useRole();
+  const [role, setUserRole] = useState(null);
+  const { user } = useKindeBrowserClient();
+
+  useEffect(() => {
+    const handleUser = async () => {
+      if (user) {
+        const response = await GlobalApi.checkUserExists(user.email);
+        const role = response.data[0].role.type;
+        setUserRole(role);
+        sessionStorage.setItem("role", role); // optionnel, pour la persistance du rôle
+      }
+    };
+
+    handleUser().catch(console.error);
+  }, [user]);
+  const getRolePath = (role) => (role === "doctor" ? "/doctor-home" : "/");
+  const handleLogout = () => {
+    sessionStorage.removeItem("role");
+  };
   const Menu = [
     {
       id: 1,
       name: "Home",
-      path: "/",
-    },
-    {
-      id: 2,
-      name: "Explore",
-      path: "/explore",
-    },
-    {
-      id: 3,
-      name: "Contact Us",
-      path: "/",
+      path: getRolePath(role),
     },
   ];
 
-  const { user } = useKindeBrowserClient();
-
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
   return (
     <div
       className="flex items-center 
     justify-between p-4 shadow-sm md:px-20"
     >
       <div className="flex items-center gap-10">
-        <Image src="/logo.svg" alt="logo" width={180} height={80} />
+        <Image src="logo2.png" alt="logo" width={180} height={80} />
         <ul className="md:flex gap-8 hidden">
           {Menu.map((item, index) => (
             <Link href={item.path} key={index}>
@@ -87,26 +91,27 @@ function Header() {
           </PopoverTrigger>
           <PopoverContent className="w-44">
             <ul className="flex  flex-col gap-2">
-              {user == "doctor" ? (
-                <Link
-                  href={"/my-booking"}
-                  className="cursor-pointer
-             hover:bg-slate-100 p-2 rounded-md"
-                >
-                  My Booking
-                </Link>
-              ) : (
+              {role === "doctor" ? (
                 <Link
                   href={"/edit-profile"}
                   className="cursor-pointer
-           hover:bg-slate-100 p-2 rounded-md"
+             hover:bg-slate-100 p-2 rounded-md"
                 >
                   Edit profile
+                </Link>
+              ) : (
+                <Link
+                  href={"/my-booking"}
+                  className="cursor-pointer
+           hover:bg-slate-100 p-2 rounded-md"
+                >
+                  My Booking
                 </Link>
               )}
               <li
                 className="cursor-pointer
              hover:bg-slate-100 p-2 rounded-md"
+                onClick={handleLogout}
               >
                 <LogoutLink> Logout </LogoutLink>
               </li>

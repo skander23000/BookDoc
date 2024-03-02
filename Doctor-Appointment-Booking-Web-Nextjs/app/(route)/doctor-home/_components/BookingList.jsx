@@ -22,7 +22,10 @@ function BookingList({ bookingList, expired, updateRecord }) {
     <div>
       {bookingList.length > 0 ? (
         bookingList.map((item, index) => (
-          <div className=" flex gap-4 items-center border p-5 m-3 rounded-lg">
+          <div
+            className=" flex gap-4 items-center border p-5 m-3 rounded-lg"
+            key={index}
+          >
             <Image
               src={
                 item.attributes.doctor.data.attributes?.image?.data?.attributes
@@ -35,7 +38,7 @@ function BookingList({ bookingList, expired, updateRecord }) {
             />
             <div className="flex flex-col gap-2 w-full">
               <h2 className="font-bold text-[18px] items-center flex justify-between">
-                {item.attributes.doctor.data.attributes.Name}
+                {item.attributes.UserName}
                 {!expired && (
                   <CancelAppointment
                     onContinueClick={() => onDeleteBooking(item)}

@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 
 function DoctorList({ doctorList, heading = "Popular Doctors" }) {
+  doctorList.map((doctor, index) => console.log(doctor));
   return (
     <div className="mb-10 px-8">
       <h2 className="font-bold text-xl">{heading}</h2>
@@ -33,26 +34,22 @@ function DoctorList({ doctorList, heading = "Popular Doctors" }) {
                   <h2 className="text-[10px] bg-blue-100 p-1 rounded-full px-2 text-primary">
                     {doctor.attributes?.categories.data?.[0]?.attributes
                       ?.Name || "Default Category"}{" "}
-                    // Provide a default category name
                   </h2>
                   <h2 className="font-bold">
-                    {doctor.attributes?.Name || "Doctor Name"}
+                    Name : {doctor.attributes?.Name || "Doctor Name"}
                   </h2>{" "}
-                  // Provide a default name
                   <h2 className="text-primary text-sm">
-                    {doctor.attributes?.Year_of_Experience || "0"} // Provide a
-                    default experience year
+                    Year of experience:{" "}
+                    {doctor.attributes?.Year_of_Experience || "0"}
                   </h2>
                   <h2 className="text-gray-500 text-sm">
-                    {doctor.attributes?.Address || "Default Address"} // Provide
-                    a default address
+                    Adresse: {doctor.attributes?.Address || "Default Address"}
                   </h2>
                   <Link
                     href={"/details/" + (doctor?.id || "#")}
                     className="w-full"
                   >
                     {" "}
-                    // Provide a fallback for the link
                     <h2 className="p-2 px-3 border-[1px] border-primary text-primary rounded-full w-full text-center text-[11px] mt-2 cursor-pointer hover:bg-primary hover:text-white">
                       Book Now
                     </h2>

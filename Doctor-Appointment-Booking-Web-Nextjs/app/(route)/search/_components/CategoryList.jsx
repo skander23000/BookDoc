@@ -49,7 +49,10 @@ function CategoryList() {
                 `}
                 >
                   <Image
-                    src={item.attributes?.Icon?.data?.attributes?.url}
+                    src={
+                      item.attributes?.Icon?.data?.attributes?.url ||
+                      "/default-image-path.png"
+                    }
                     alt="icon"
                     width={25}
                     height={25}

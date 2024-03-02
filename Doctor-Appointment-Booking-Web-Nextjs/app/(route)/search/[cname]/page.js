@@ -12,7 +12,7 @@ function Search({ params }) {
 
   const getDoctors = () => {
     const request = GlobalApi.getDoctorByCategory(params.cname);
-    console.log(request); // Check if this logs a promise
+    console.log(request);
     request
       .then((resp) => {
         setDoctorList(resp.data.data);
