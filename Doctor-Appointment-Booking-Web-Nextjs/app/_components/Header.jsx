@@ -50,8 +50,8 @@ function Header() {
     justify-between p-4 shadow-sm md:px-20"
     >
       <div className="flex items-center gap-10">
-        <Image src="logo2.png" alt="logo" width={180} height={80} />
-        <ul className="md:flex gap-8 hidden">
+        <Image src="../logo2.png" alt="logo" width={180} height={80} />
+        <ul className="md:flex gap-8 ">
           {Menu.map((item, index) => (
             <Link href={item.path} key={index}>
               <li

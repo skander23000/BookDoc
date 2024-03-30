@@ -142,13 +142,6 @@ function BookAppointment({ doctor }) {
             <>
               <Button
                 type="button"
-                className="text-red-500 border-red-500"
-                variant="outline"
-              >
-                Close
-              </Button>
-              <Button
-                type="button"
                 disabled={!(date && selectedTimeSlot)}
                 onClick={() => saveBooking()}
               >
