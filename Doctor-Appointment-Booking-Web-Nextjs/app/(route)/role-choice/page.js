@@ -76,7 +76,7 @@ function RoleChoicePage() {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: "5vh",
+        marginTop: "3vh",
         gap: "5px",
       }}
     >
@@ -115,7 +115,6 @@ function RoleChoicePage() {
             style={{
               padding: "10px 20px",
               cursor: "pointer",
-              marginTop: "1rem",
               fontSize: "1.2rem",
             }}
           >
@@ -130,7 +129,6 @@ function RoleChoicePage() {
             style={{
               padding: "10px 20px",
               cursor: "pointer",
-              marginTop: "1rem",
               fontSize: "1.2rem",
             }}
           >

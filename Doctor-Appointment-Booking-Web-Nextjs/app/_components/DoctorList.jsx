@@ -6,7 +6,7 @@ function DoctorList({ doctorList, heading = "Popular Doctors" }) {
   doctorList.map((doctor, index) => console.log(doctor));
   return (
     <div className="mb-10 px-8">
-      <h2 className="font-bold text-xl">{heading}</h2>
+      <h2 className="font-bold text-xl">{decodeURIComponent(heading)}</h2>
 
       <div
         className="grid grid-cols-2 
